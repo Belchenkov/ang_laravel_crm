@@ -1,0 +1,58 @@
+version: '3'
+services:
+    frontend-nginx:
+        build:
+            context: ./frontend/docker
+            dockerfile: nginx.docker
+        volumes:
+            - ./frontend:/var/www/frontend
+        depends_on:
+            - api-php-fpm
+        ports:
+            - "8082:80"
+    frontend-nodejs:
+        image: node:14-alpine
+        volumes:
+            - ./frontend:/var/www/frontend
+        working_dir: /var/www/frontend
+        tty: true
+
+    api-nginx:
+        build:
+            context: ./api/docker
+            dockerfile: nginx.docker
+        volumes:
+            - ./api:/var/www/api
+        ports:
+            - "8081:80"
+    api-php-fpm:
+        build:
+            context: ./api/docker
+            dockerfile: php-fpm.docker
+        volumes:
+            - ./api:/var/www/api
+        depends_on:
+            - api-mysql
+    api-php-cli:
+        build:
+            context: ./api/docker
+            dockerfile: php-cli.docker
+        volumes:
+            - ./api:/var/www/api
+        depends_on:
+            - api-mysql
+        working_dir: /var/www/api
+        tty: true
+
+    api-mysql:
+        platform: linux/x86_64
+        image: mysql:5.7
+        volumes:
+            - ./api/storage/docker/mysql:/var/lib/mysql
+        environment:
+            - "MYSQL_ROOT_PASSWORD=secret"
+            - "MYSQL_USER=app"
+            - "MYSQL_PASSWORD=secret"
+            - "MYSQL_DATABASE=app"
+        ports:
+            - "33062:3306"
