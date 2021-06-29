@@ -72,7 +72,7 @@ class ModuleMake extends Command
             $this->createVueComponent();
         }
 
-        if ($this->option('vue')) {
+        if ($this->option('view')) {
             $this->createView();
         }
     }

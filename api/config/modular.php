@@ -13,6 +13,9 @@ return [
     'modules' => [
         'Admin' => [
             'User'
+        ],
+        'Pub' => [
+            'Auth'
         ]
     ]
 ];
