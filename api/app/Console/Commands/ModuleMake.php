@@ -115,9 +115,9 @@ class ModuleMake extends Command
 
             $this->files->put($path, $stub);
             $this->info('Controller created successfully.');
-            //$this->updateModularConfig();
         }
 
+        $this->updateModularConfig();
         $this->createRoutes($controller, $modelName);
     }
 
@@ -160,9 +160,9 @@ class ModuleMake extends Command
 
             $this->files->put($path, $stub);
             $this->info('Controller created successfully.');
-            //$this->updateModularConfig();
         }
 
+        $this->updateModularConfig();
         $this->createApiRoutes($controller, $modelName);
     }
 
@@ -371,5 +371,28 @@ class ModuleMake extends Command
     protected function alreadyExists($path) : bool
     {
         return $this->files->exists($path);
+    }
+
+    private function updateModularConfig()
+    {
+        $group = explode('/', $this->argument('name'))[0];
+        $module = Str::studly(class_basename($this->argument('name')));
+
+        $modular = $this->files->get(base_path('config/modular.php'));
+
+        $matches = [];
+
+        preg_match("/'modules' => \[.*?'{$group}' => \[(.*?)\]/s", $modular, $matches);
+
+        if (count($matches) === 2) {
+            if (! preg_match("/'{$module}'/", $matches[1])) {
+                $parts = preg_split("/('modules' => \[.*?'{$group}' => \[)/s", $modular, 2, PREG_SPLIT_DELIM_CAPTURE);
+
+                if (count($parts) === 3) {
+                    $configStr = $parts[0].$parts[1]."\n            '$module',".$parts[2];
+                    $this->files->put(base_path('config/modular.php'), $configStr);
+                }
+            }
+        }
     }
 }

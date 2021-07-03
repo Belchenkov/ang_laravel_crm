@@ -25,10 +25,6 @@ services:
             - ./api:/var/www/api
         ports:
             - "8081:80"
-       depends_on:
-            - api-php-cli
-            - api-php-fpm
-            - api-mysql
     api-php-fpm:
         build:
             context: ./api/docker

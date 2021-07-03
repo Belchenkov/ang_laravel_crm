@@ -80,7 +80,11 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
+    'locales' => [
+        'en',
+        'ru',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +166,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         \App\Providers\ModularProvider::class,
+        \App\Services\Localization\LocalizationServiceProvider::class,
 
         /*
          * Package Service Providers...

@@ -20,7 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 191)->unique();
             $table->string('phone')->nullable();
             $table->string('password');
-            $table->enum('status', ['0', '1'])->default('0');
+            $table->enum('status',['0','1'])->default('0');
+            //$table->rememberToken();
 
             $table->timestamps();
         });
