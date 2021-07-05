@@ -26,7 +26,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-            {{--@include('Admin::layouts.parts.menuItems',['items'=>$menu->roots()])--}}
+            @include('Admin::layouts.parts.menuItems', ['items' => $menu->roots()])
             <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 {{--<li class="nav-item menu-open">
