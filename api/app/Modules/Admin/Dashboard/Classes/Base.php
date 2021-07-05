@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Menu;
 use App\Modules\Admin\Menu\Models\Menu as MenuModel;
 
@@ -59,7 +60,41 @@ class Base extends Controller
                 if ($path && $this->checkRoute($path)) {
                     $path = route($path);
                 }
+
+                if ((int)$item->parent === 0) {
+                    $m
+                        ->add($item->title, $path)
+                        ->id($item->id)
+                        ->data('permissions', []);
+                } else {
+                    if ($m->find($item->parent)) {
+                        $m
+                            ->find($item->parent)
+                            ->add($item->title, $path)
+                            ->id($item->id)
+                            ->data('permissions', []);
+                    }
+                }
             }
+        })->filter(function ($item) {
+            return true;
         });
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    private function checkRoute(string $path)
+    {
+        $routes = Route::getRoutes()->getRoutes();
+
+        foreach ($routes as $route) {
+            if ($route->getName() === $path) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
