@@ -19,11 +19,6 @@ class RoleController extends Base
         $this->service = $roleService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $this->authorize('view', Role::class);
