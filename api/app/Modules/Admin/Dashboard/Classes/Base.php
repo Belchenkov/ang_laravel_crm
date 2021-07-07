@@ -21,6 +21,7 @@ class Base extends Controller
     protected $vars;
     protected $sidebar;
     protected $locale;
+    protected $service;
 
     public function __construct()
     {

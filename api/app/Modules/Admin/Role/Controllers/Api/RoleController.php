@@ -2,20 +2,15 @@
 
 namespace App\Modules\Admin\Role\Controllers\Api;
 
+use App\Modules\Admin\Dashboard\Classes\Base;
 use App\Modules\Admin\Role\Models\Role;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class RoleController extends Base
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+
     }
 
     /**
