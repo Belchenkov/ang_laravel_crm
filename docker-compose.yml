@@ -23,6 +23,9 @@ services:
             dockerfile: nginx.docker
         volumes:
             - ./api:/var/www/api
+        depends_on:
+            - api-php-cli
+            - api-php-fpm
         ports:
             - "8081:80"
     api-php-fpm:
