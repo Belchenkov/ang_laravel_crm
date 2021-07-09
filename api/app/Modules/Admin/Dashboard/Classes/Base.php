@@ -21,6 +21,7 @@ class Base extends Controller
     protected $vars;
     protected $sidebar;
     protected $locale;
+    protected $service;
 
     public function __construct()
     {
@@ -65,19 +66,19 @@ class Base extends Controller
                     $m
                         ->add($item->title, $path)
                         ->id($item->id)
-                        ->data('permissions', []);
+                        ->data('permissions', $this->getPermissions($item));
                 } else {
                     if ($m->find($item->parent)) {
                         $m
                             ->find($item->parent)
                             ->add($item->title, $path)
                             ->id($item->id)
-                            ->data('permissions', []);
+                            ->data('permissions', $this->getPermissions($item));
                     }
                 }
             }
         })->filter(function ($item) {
-            return true;
+            return $this->user && $this->user->canDo($item->data('permissions'));
         });
     }
 
@@ -96,5 +97,12 @@ class Base extends Controller
         }
 
         return false;
+    }
+
+    private function getPermissions($item)
+    {
+        return $item->perms->map(function ($i) {
+            return $i->alias;
+        })->toArray();
     }
 }
