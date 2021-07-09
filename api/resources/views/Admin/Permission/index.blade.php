@@ -8,7 +8,12 @@
 <div class="content">
     <!-- Hover rows -->
     <div class="card">
-        <form class="table-responsive"  enctype="multipart/form-data" method="post" action="{{route('permissions.store')}}">
+        <form
+            class="table-responsive"
+            enctype="multipart/form-data"
+            method="post"
+            action="{{route('permissions.store')}}"
+        >
 
             @csrf
             @if($perms)
@@ -29,7 +34,7 @@
                                 @foreach($roles as $role)
                                     <td>
                                         <label class="checkbox-label">
-                                            @if(true/*$role->hasPermission($val->alias)*/)
+                                            @if($role->hasPermission($val->alias))
                                                 <input checked name="{{ $role->id }}[]" type="checkbox"
                                                        class="checkbox-input" value="{{ $val->id }}">
                                             @else

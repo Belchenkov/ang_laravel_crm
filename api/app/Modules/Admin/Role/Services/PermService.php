@@ -4,16 +4,24 @@
 namespace App\Modules\Admin\Role\Services;
 
 
+use App\Modules\Admin\Role\Models\Role;
 use App\Modules\Admin\Role\Requests\RoleRequest;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class PermService
 {
-    public function save(RoleRequest $request, Model $model)
+    public function save(Request $request)
     {
-        $model->fill($request->only($model->getFillable()));
-        $model->save();
+        $data = $request->except('_token');
 
-        return true;
+        $roles = Role::all();
+
+        foreach ($roles as $role) {
+            if (isset($data[$role->id])) {
+                $role->savePermissions($data[$role->id]);
+            } else {
+                $role->savePermissions([]);
+            }
+        }
     }
 }

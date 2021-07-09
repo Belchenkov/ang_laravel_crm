@@ -36,25 +36,15 @@ class PermissionsController extends Base
         return $this->renderOutput();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Role::class);
+
+        $this->service->save($request);
+
+        return back()->with([
+                'message' => __('Success')
+            ]);
     }
 
     /**

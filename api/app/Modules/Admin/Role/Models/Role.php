@@ -39,4 +39,27 @@ class Role extends Model
             $this->perms()->detach();
         }
     }
+
+    public function hasPermission($alias, $require = false)
+    {
+        if (is_array($alias)) {
+            foreach ($alias as $permission_alias) {
+                $has_permissions = $this->hasPermission($permission_alias);
+
+                if ($has_permissions && ! $require) {
+                    return true;
+                } elseif (! $has_permissions && $require) {
+                    return false;
+                }
+            }
+        } else {
+            foreach ($this->perms as $permission) {
+                if ($permission->alias == $alias) {
+                    return true;
+                }
+            }
+        }
+
+        return $require;
+    }
 }
