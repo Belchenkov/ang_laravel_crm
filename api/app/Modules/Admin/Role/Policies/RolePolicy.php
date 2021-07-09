@@ -19,23 +19,23 @@ class RolePolicy
         //
     }
 
-    public function view()
+    public function view(User $user)
     {
-        return true;
+        return $user->canDo(['view']);
     }
 
-    public function create()
+    public function create(User $user)
     {
-        return true;
+        return $user->canDo(['create']);
     }
 
-    public function edit()
+    public function edit(User $user)
     {
-        return true;
+        return $user->canDo(['edit']);
     }
 
-    public function delete()
+    public function delete(User $user)
     {
-        return true;
+        return $user->canDo(['delete']);
     }
 }

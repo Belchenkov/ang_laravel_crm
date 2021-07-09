@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Role\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RoleRequest extends FormRequest
 {

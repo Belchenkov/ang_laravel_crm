@@ -60,17 +60,6 @@ class RoleController extends Base
             ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin\Role\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
-
     public function edit(Role $role)
     {
         $this->authorize('edit', Role::class);
