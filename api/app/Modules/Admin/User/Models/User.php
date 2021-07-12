@@ -11,6 +11,9 @@ class User extends AuthUser
 {
     use HasFactory, HasApiTokens, UserRoles;
 
+    public const ACTIVE = 1;
+    public const NOT_ACTIVE = 0;
+
     protected $fillable = [
         'firstname',
         'lastname',
