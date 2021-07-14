@@ -14,7 +14,7 @@ class UserService
     /**
      * @return array
      */
-    public function getUsers($status = false): array
+    public function getUsers($status = false)
     {
         $usersBuilder = User::with('roles');
 
