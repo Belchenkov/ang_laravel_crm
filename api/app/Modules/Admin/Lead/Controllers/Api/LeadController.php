@@ -3,9 +3,13 @@
 namespace App\Modules\Admin\Lead\Controllers\Api;
 
 use App\Modules\Admin\Lead\Models\Lead;
+use App\Modules\Admin\Lead\Requests\LeadCreateRequest;
 use App\Modules\Admin\Lead\Services\LeadService;
+use App\Services\Response\ResponseService;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LeadController extends Controller
 {
@@ -18,24 +22,24 @@ class LeadController extends Controller
 
     public function index()
     {
-        //
+        $this->authorize('view', new Lead());
+
+        $result = $this->service->getLeads();
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'leads' => $result
+        ]);
     }
 
-
-    public function create()
+    public function store(LeadCreateRequest $request)
     {
-        //
-    }
+        $this->authorize('create', new Lead());
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $lead = $this->service->store($request, Auth::user());
+
+        return ResponseService::sendJsonResponse(true, 201, [], [
+            'lead' => $lead
+        ]);
     }
 
     /**

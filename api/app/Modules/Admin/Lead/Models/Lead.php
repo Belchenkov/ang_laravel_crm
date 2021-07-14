@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class Lead extends Model
 {
@@ -59,5 +61,21 @@ class Lead extends Model
             ->firstOrFail();
     }
 
+    public function getLeads()
+    {
+        $sql = DB::raw('DATE_SUB(NOW(), INTERVAL 24 HOUR)');
 
+        return $this->with([
+                'source',
+                'unit',
+                'status'
+            ])
+            ->whereBetween('status_id', [Status::NEW, Status::PROCESS])
+            ->orWhere([
+                ['status_id', Status::DONE],
+                ['updated_at', '>', $sql],
+            ])
+            ->orderBy('created_at')
+            ->get();
+    }
 }
