@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Status
  * @package App\Modules\Admin\Status\Models
+ * @property int id
  * @property string title_ru
  */
 class Status extends Model

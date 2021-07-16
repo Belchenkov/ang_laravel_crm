@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Lead\Controllers\Api;
 use App\Modules\Admin\Lead\Models\Lead;
 use App\Modules\Admin\Lead\Requests\LeadCreateRequest;
 use App\Modules\Admin\Lead\Services\LeadService;
+use App\Modules\Admin\LeadComment\Models\LeadComment;
 use App\Services\Response\ResponseService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -42,27 +43,15 @@ class LeadController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin\Lead\Models\Lead  $lead
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Lead $lead)
+    public function update(LeadCreateRequest $request, Lead $lead)
     {
-        //
-    }
+        $this->authorize('create', Lead::class);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Modules\Admin\Lead\Models\Lead  $lead
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Lead $lead)
-    {
-        //
+        $lead = $this->service->update($request, Auth::user(), $lead);
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'lead' => $lead
+        ]);
     }
 
     /**

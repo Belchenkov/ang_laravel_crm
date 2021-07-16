@@ -65,4 +65,59 @@ class LeadService
             LeadCommentService::saveComment($tmp_text, $lead, $user, $status, $request->text, $is_event);
         }
     }
+
+    public function update(LeadCreateRequest $request, User $user, Lead $lead): Lead
+    {
+        $tmp = clone $lead;
+        $lead->count_create++;
+        $status = Status::where('title', 'new')->firstOrFail();
+
+        $lead->fill($request->only($lead->getFillable()));
+        $lead->status()
+            ->associate($status)
+            ->save();
+
+        // Add comment
+        $this->addUpdateComments($lead, $request, $user, $status, $tmp);
+
+        return $lead;
+    }
+
+    private function addUpdateComments(
+        Lead $lead,
+        LeadCreateRequest $request,
+        User $user,
+        Status $status,
+        Lead $tmp
+    ): void
+    {
+        if ($tmp->source_id !== $lead->source_id) {
+            $is_event = true;
+            $tmp_text = 'Пользователь <strong>' . $user->full_name . '</strong> изменил источник на ' . $lead->source->title;
+            LeadCommentService::saveComment($tmp_text, $lead, $user, $status, null, $is_event);
+        }
+
+        if ($tmp->unit_id !== $lead->unit_id) {
+            $is_event = true;
+            $tmp_text = 'Пользователь <strong>' . $user->full_name . '</strong> изменил позразделение на ' . $lead->unit->title;
+            LeadCommentService::saveComment($tmp_text, $lead, $user, $status, null, $is_event);
+        }
+
+        if ($tmp->status_id !== $lead->status_id) {
+            $is_event = true;
+            $tmp_text = 'Пользователь <strong>' . $user->full_name . '</strong> изменил статус на ' . $lead->status->title_ru;
+            LeadCommentService::saveComment($tmp_text, $lead, $user, $status, null, $is_event);
+        }
+
+        if ($request->text) {
+            $tmp_text = 'Пользователь <strong>' . $user->full_name . '</strong> оставил комментарий ' . $request->text;
+            LeadCommentService::saveComment($tmp_text, $lead, $user, $status, $request->text);
+        }
+
+        $is_event = true;
+        $tmp_text = 'Автор <strong>' . $user->full_name . '</strong> создал лид со статусом ' . $status->title_ru;
+        LeadCommentService::saveComment($tmp_text, $lead, $user, $status, null, $is_event);
+
+        $lead->statuses()->attach($status->id);
+    }
 }

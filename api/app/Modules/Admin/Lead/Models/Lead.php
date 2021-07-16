@@ -12,9 +12,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class Lead
+ * @package App\Modules\Admin\Lead\Models
+ * @property int user_id
+ * @property int status_id
+ * @property int count_create
+ * @property int source_id
+ * @property int unit_id
+ * @property Source source
+ * @property Unit unit
+ * @property Status status
+ */
 class Lead extends Model
 {
     use HasFactory;
