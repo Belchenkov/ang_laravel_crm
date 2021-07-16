@@ -4,8 +4,17 @@ namespace App\Modules\Admin\Lead\Requests;
 
 use App\Services\Requests\ApiRequest;
 
+/**
+ * Class LeadCreateRequest
+ * @package App\Modules\Admin\Lead\Requests
+ * @property string $text
+ */
 class LeadCreateRequest extends ApiRequest
 {
+    /**
+     * @var mixed
+     */
+
     /**
      * Determine if the user is authorized to make this request.
      *

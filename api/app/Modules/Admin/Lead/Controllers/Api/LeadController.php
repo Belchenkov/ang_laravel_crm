@@ -48,17 +48,6 @@ class LeadController extends Controller
      * @param  \App\Modules\Admin\Lead\Models\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show(Lead $lead)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin\Lead\Models\Lead  $lead
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Lead $lead)
     {
         //

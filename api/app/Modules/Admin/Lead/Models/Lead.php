@@ -10,6 +10,7 @@ use App\Modules\Admin\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,11 @@ class Lead extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(LeadComment::class);
+    }
+
+    public function statuses(): BelongsToMany
+    {
+        return $this->belongsToMany(Status::class);
     }
 
     public function lastComment(): HasMany
