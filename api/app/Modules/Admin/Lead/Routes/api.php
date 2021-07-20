@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'leads', 'middleware' => []], function () {
     Route::get('/', 'Api\LeadController@index')->name('api.leads.index');
+    Route::get('/archive/index', 'Api\LeadController@archive')->name('api.leads.archive');
     Route::post('/', 'Api\LeadController@store')->name('api.leads.store');
     Route::get('/{lead}', 'Api\LeadController@show')->name('api.leads.read');
     Route::put('/{lead}', 'Api\LeadController@update')->name('api.leads.update');

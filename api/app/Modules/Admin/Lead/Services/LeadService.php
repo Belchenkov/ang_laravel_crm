@@ -9,6 +9,8 @@ use App\Modules\Admin\Lead\Requests\LeadCreateRequest;
 use App\Modules\Admin\LeadComment\Services\LeadCommentService;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class LeadService
 {
@@ -119,5 +121,10 @@ class LeadService
         LeadCommentService::saveComment($tmp_text, $lead, $user, $status, null, $is_event);
 
         $lead->statuses()->attach($status->id);
+    }
+
+    public function archive(): LengthAwarePaginator
+    {
+        return (new Lead())->getArchive();
     }
 }

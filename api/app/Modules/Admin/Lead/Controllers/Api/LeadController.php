@@ -8,6 +8,7 @@ use App\Modules\Admin\Lead\Services\LeadService;
 use App\Modules\Admin\LeadComment\Models\LeadComment;
 use App\Services\Response\ResponseService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -63,5 +64,16 @@ class LeadController extends Controller
     public function destroy(Lead $lead)
     {
         //
+    }
+
+    public function archive(): JsonResponse
+    {
+        $this->authorize('view', Lead::class);
+
+        $leads = $this->service->archive();
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'leads' => $leads
+        ]);
     }
 }

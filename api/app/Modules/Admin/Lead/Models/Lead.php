@@ -7,11 +7,13 @@ use App\Modules\Admin\Sources\Models\Source;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\Unit\Models\Unit;
 use App\Modules\Admin\User\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -82,7 +84,7 @@ class Lead extends Model
     {
         $sql = DB::raw('DATE_SUB(NOW(), INTERVAL 24 HOUR)');
 
-        return $this->with([
+        return self::with([
                 'source',
                 'unit',
                 'status'
@@ -94,5 +96,20 @@ class Lead extends Model
             ])
             ->orderBy('created_at')
             ->get();
+    }
+
+    public function getArchive(): LengthAwarePaginator
+    {
+        $sql = DB::raw('DATE_SUB(NOW(), INTERVAL 24 HOUR)');
+
+        return self::with([
+            'statuses',
+            'source',
+            'unit'
+        ])
+        ->where('status_id', Status::DONE)
+        ->where('updated_at', '<', $sql)
+        ->orderBy('updated_at', 'desc')
+        ->paginate(config('settings.pagination'));
     }
 }
