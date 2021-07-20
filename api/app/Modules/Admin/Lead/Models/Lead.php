@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admin\Lead\Models;
 
+use App\Modules\Admin\Analytics\Policies\AnalyticPolicy;
 use App\Modules\Admin\LeadComment\Models\LeadComment;
 use App\Modules\Admin\Sources\Models\Source;
 use App\Modules\Admin\Status\Models\Status;
@@ -30,7 +31,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Lead extends Model
 {
-    use HasFactory;
+    use HasFactory, AnalyticPolicy;
 
     protected $fillable = [
         'link',
