@@ -127,4 +127,23 @@ class LeadService
     {
         return (new Lead())->getArchive();
     }
+
+    /**
+     * @param $request
+     * @return Lead
+     */
+    public function checkExist($request): Lead
+    {
+        $qB = Lead::select('*');
+
+        if ($request->link) {
+            $qB->where('link', $request->link);
+        } elseif ($request->phone) {
+            $qB->where('phone', $request->phone);
+        }
+
+        $qB->where('status_id', '!=', Status::DONE);
+
+        return $qB->firstOrFail();
+    }
 }

@@ -33,6 +33,16 @@ class LeadController extends Controller
         ]);
     }
 
+
+    public function show(Lead $lead)
+    {
+        $this->authorize('view', new Lead());
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'lead' => $lead
+        ]);
+    }
+
     public function store(LeadCreateRequest $request)
     {
         $this->authorize('create', new Lead());
@@ -74,6 +84,21 @@ class LeadController extends Controller
 
         return ResponseService::sendJsonResponse(true, 200, [], [
             'leads' => $leads
+        ]);
+    }
+
+    public function checkExist(Request $request): JsonResponse
+    {
+        $this->authorize('create', Lead::class);
+
+        $lead = $this->service->checkExist($request);
+
+        if (! $lead) {
+            return ResponseService::success();
+        }
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'lead' => $lead
         ]);
     }
 }
