@@ -101,4 +101,15 @@ class LeadController extends Controller
             'lead' => $lead
         ]);
     }
+
+    public function updateQuality(Lead $lead): JsonResponse
+    {
+        $this->authorize('create', Lead::class);
+
+        $lead = $this->service->updateQuality($lead);
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'lead' => $lead
+        ]);
+    }
 }

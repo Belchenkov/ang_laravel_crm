@@ -7,7 +7,6 @@ use App\Modules\Admin\Sources\Models\Source;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\Unit\Models\Unit;
 use App\Modules\Admin\User\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,6 +23,7 @@ use Illuminate\Support\Facades\DB;
  * @property int count_create
  * @property int source_id
  * @property int unit_id
+ * @property bool is_quality_lead
  * @property Source source
  * @property Unit unit
  * @property Status status

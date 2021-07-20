@@ -146,4 +146,11 @@ class LeadService
 
         return $qB->firstOrFail();
     }
+
+    public function updateQuality(Lead $lead): Lead
+    {
+        $lead->is_quality_lead = true;
+        $lead->save();
+        return $lead;
+    }
 }
