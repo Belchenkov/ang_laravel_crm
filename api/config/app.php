@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\Date\Facade\DateService;
+
 return [
 
     /*
@@ -169,6 +171,7 @@ return [
         \App\Services\Localization\LocalizationServiceProvider::class,
         Lavary\Menu\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        \App\Services\Date\Provider\DateCheckServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -236,6 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Menu' => Lavary\Menu\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'DateService' => DateService::class,
     ],
 
 ];

@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Analytics\Export;
 
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
+use App\Services\Date\Facade\DateService;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -18,8 +19,12 @@ class LeadsExport implements FromCollection, WithHeadings
     public function __construct(User $user, string $date_start, string $date_end)
     {
         $this->user = $user;
-        $this->date_start = $date_start ? Carbon::parse($date_start) : new Carbon('first day of this month');
-        $this->date_end = $date_end ? Carbon::parse($date_end) : new Carbon('last day of this month');
+        $this->date_start = $date_start && DateService::isValid($date_start, 'd.m.Y')
+            ? Carbon::parse($date_start)
+            : new Carbon('first day of this month');
+        $this->date_end = $date_end && DateService::isValid($date_end, 'd.m.Y')
+            ? Carbon::parse($date_end)
+            : new Carbon('last day of this month');
     }
 
     /**
