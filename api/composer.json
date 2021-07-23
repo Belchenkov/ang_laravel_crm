@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "7.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -13,7 +13,8 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "lavary/laravel-menu": "^1.8"
+        "lavary/laravel-menu": "^1.8",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
