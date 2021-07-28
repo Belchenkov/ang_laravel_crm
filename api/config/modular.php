@@ -15,6 +15,8 @@ return [
             'Analytics',
             'LeadComment',
             'Lead',
+            'Task',
+            'TaskComment',
             'Sources',
             'Role',
             'Menu',
