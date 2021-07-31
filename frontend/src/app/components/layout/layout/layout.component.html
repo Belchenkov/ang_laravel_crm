@@ -1,12 +1,16 @@
 <div class="layout-wrapper">
   <div class="content-wrapper">
-    <div></div>
-    <div>
-      <app-navigation></app-navigation>
-      <main>
-        <router-outlet></router-outlet>
-      </main>
-    </div>
+    <mat-sidenav-container class="side-container">
+      <mat-sidenav class="side-container_nav">
+        <app-sidenav-list></app-sidenav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-navigation></app-navigation>
+        <main>
+          <router-outlet></router-outlet>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
     <app-preloader></app-preloader>
   </div>
 </div>
