@@ -7,7 +7,7 @@ return [
     'groupMiddleware' => [
         'Admin' => [
             'web' => ['auth'],
-            'api' => ['auth:api']
+            'api' => [/*'auth:api'*/]
         ]
     ],
     'modules' => [
