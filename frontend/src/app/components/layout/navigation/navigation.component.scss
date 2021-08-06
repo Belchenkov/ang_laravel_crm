@@ -1,0 +1,26 @@
+.navigation-toolbar {
+  display: flex;
+  align-items: center;
+  font-family: 'Georama', sans-serif;
+  text-shadow: 0 0 3px #0b2e13;
+  background: #bf5454;
+
+  .menu-icon {
+    margin-right: 20px;
+  }
+
+  .navigation-desktop {
+    margin-left: 50px;
+  }
+
+  a {
+    font-family: inherit;
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .navigation-desktop {
+    display: none;
+  }
+}

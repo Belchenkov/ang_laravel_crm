@@ -1,11 +1,17 @@
 <div class="layout-wrapper">
   <div class="content-wrapper">
     <mat-sidenav-container class="side-container">
-      <mat-sidenav class="side-container_nav">
-        <app-sidenav-list></app-sidenav-list>
+      <mat-sidenav #sidenav class="side-container_nav">
+        <app-sidenav-list
+          (sidenavClose)="sidenav.close()"
+          [navigation]="navigation"
+        ></app-sidenav-list>
       </mat-sidenav>
       <mat-sidenav-content>
-        <app-navigation></app-navigation>
+        <app-navigation
+          (sidenavToggle)="sidenav.toggle()"
+          [navigation]="navigation"
+        ></app-navigation>
         <main>
           <router-outlet></router-outlet>
         </main>

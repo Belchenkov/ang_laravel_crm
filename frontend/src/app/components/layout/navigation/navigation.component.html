@@ -1,11 +1,18 @@
 <mat-toolbar class="navigation-toolbar" color="primary">
-  <div>
-    <button mat-icon-button>
+  <div class="menu-icon">
+    <button mat-icon-button (click)="onToggleSideNav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
+  <img src="https://img.icons8.com/plasticine/35/000000/task.png" alt="logo" />
   <span>NG Lara CRM</span>
   <div class="navigation-desktop">
-    <a mat-button color="accent" href="">Link</a>
+    <a
+      *ngFor="let item of navigation"
+      mat-button
+      [routerLink]="item.path"
+    >
+      {{ item.title }}
+    </a>
   </div>
 </mat-toolbar>
