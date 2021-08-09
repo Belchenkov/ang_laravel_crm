@@ -11,6 +11,8 @@ import { NavigationComponent } from './components/layout/navigation/navigation.c
 import { PreloaderComponent } from './components/layout/preloader/preloader.component';
 import { SidenavListComponent } from './components/layout/sidenav-list/sidenav-list.component';
 import { PreloaderInterceptor } from "./interceptors/preloader.interceptor";
+import { FormComponent } from './components/form/form.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { PreloaderInterceptor } from "./interceptors/preloader.interceptor";
     LayoutComponent,
     NavigationComponent,
     PreloaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    FormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
