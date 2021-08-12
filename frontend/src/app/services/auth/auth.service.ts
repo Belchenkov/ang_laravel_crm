@@ -7,7 +7,15 @@ export class AuthService {
 
   constructor() { }
 
-  checkUser(): boolean {
+  public checkUser(): boolean {
     return true;
+  }
+
+  public logout(): void {
+
+  }
+
+  public login() {
+
   }
 }

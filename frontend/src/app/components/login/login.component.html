@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="form-centered">
+  <div class="container login-form">
+    <div class="login-card">
+      <div class="row">
+        <div class="col s12">
+          <h1 class="login-title">Log In</h1>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              type="email"
+              matInput
+              formControlName="email"
+              [ngClass]="{'is-invalid': submitted && f.email.errors}"
+            >
+            <mat-error *ngIf="submitted && f.email.errors">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              formControlName="password"
+              [ngClass]="{'is-invalid': submitted && f.password.errors}"
+            >
+            <mat-error *ngIf="submitted && f.password.errors">
+              <div *ngIf="f.password.errors.required">Email is required</div>
+            </mat-error>
+          </mat-form-field>
+
+          <div class="login_submit_button">
+            <button
+              type="submit"
+              [disabled]="loading"
+              mat-button
+              color="primary"
+            >Submit <i class="material-icons right">send</i>
+            </button>
+          </div>
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
