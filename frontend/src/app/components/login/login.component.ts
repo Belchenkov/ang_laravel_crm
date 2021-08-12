@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { AuthService } from "../../services/auth/auth.service";
+import { User } from "../../models/user";
+import { catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
+import { ResponseHttp } from "../../models/response-http";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +54,21 @@ export class LoginComponent implements OnInit {
       return false;
     }
 
-    this.authService.login();
+    this.authService.login(this.f.email.value, this.f.password.value)
+      .pipe(
+        catchError((err: any) => {
+          this.error = (err.error as ResponseHttp).errors.message;
+          return throwError(err);
+        })
+      )
+      .subscribe((user: User) => {
+        if (user) {
+          this.router.navigate([this.redirectTo()]);
+        }
+      });
   }
 
+  private redirectTo(): string {
+      return this.route.snapshot.paramMap.get('returnUrl') || this.returnUrl;
+  }
 }

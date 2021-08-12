@@ -1,6 +1,8 @@
 export interface ResponseHttp {
   status: boolean,
-  errors: Object,
+  errors: {
+    message?: string;
+  },
   data: {
     items: any[],
     item?: any,
