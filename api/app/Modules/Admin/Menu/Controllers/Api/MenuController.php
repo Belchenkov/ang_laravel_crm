@@ -17,11 +17,10 @@ class MenuController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index()
     {
         return ResponseService::sendJsonResponse(true, 200, [], [
             'items' => (Menu::frontMenu(auth()->user())->get())->toArray()
-            //'items' => (Menu::frontMenu(User::find(1)->first())->get())->toArray()
         ]);
     }
 

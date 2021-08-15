@@ -6,6 +6,7 @@ use App\Modules\Admin\Role\Models\Permission;
 use App\Modules\Admin\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Menu extends Model
 {
@@ -14,7 +15,7 @@ class Menu extends Model
     public const MENU_TYPE_FRONT = 'front';
     public const MENU_TYPE_ADMIN = 'admin';
 
-    public function perms()
+    public function perms(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'permission_menu');
     }
