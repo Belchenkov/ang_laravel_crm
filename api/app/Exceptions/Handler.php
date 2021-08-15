@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
 
         $this->reportable(function (AuthenticationException $e, $request) {
             if ($request->wantsJson()) {
-                return ResponseService::notFound();
+                return ResponseService::notAuthorize();
             }
         });
     }
