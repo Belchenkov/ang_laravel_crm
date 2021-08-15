@@ -25,11 +25,8 @@ export class LayoutComponent implements OnInit {
         filter((event: any) => event instanceof NavigationEnd)
       )
       .subscribe((url: NavigationEnd) => {
-        console.log(url.url, 'url.url');
         if (url.url && url.url.indexOf('form') != -1) {
-          console.log('url.url && url.url.indexOf');
           if (this.authService.checkUser() && !this.navigation) {
-            console.log('getMenu')
             this.getMenu();
           }
         }

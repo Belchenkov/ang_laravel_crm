@@ -15,6 +15,7 @@ import { PreloaderInterceptor } from "./interceptors/preloader.interceptor";
 import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { LogoutInterceptor } from "./interceptors/logout.interceptor";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,11 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LogoutInterceptor,
       multi: true,
     }
   ],
