@@ -3,7 +3,10 @@
     <div class="login-card">
       <div class="row">
         <div class="col s12">
-          <h1 class="login-title">Log In</h1>
+          <h1 class="login-title">
+            <i class="material-icons">fingerprint</i>
+            Log In
+          </h1>
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <mat-form-field class="full-width">
@@ -36,9 +39,9 @@
             <button
               type="submit"
               [disabled]="loading"
-              mat-button
-              color="primary"
-            >Submit <i class="material-icons right">send</i>
+              mat-flat-button
+              color="warn"
+            >Login <i class="material-icons right">login</i>
             </button>
           </div>
           <div *ngIf="error" class="alert alert-danger">{{ error }}</div>

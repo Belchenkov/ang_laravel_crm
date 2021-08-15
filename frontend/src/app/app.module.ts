@@ -14,6 +14,7 @@ import { SidenavListComponent } from './components/layout/sidenav-list/sidenav-l
 import { PreloaderInterceptor } from "./interceptors/preloader.interceptor";
 import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,11 @@ import { LoginComponent } from './components/login/login.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: PreloaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     }
   ],

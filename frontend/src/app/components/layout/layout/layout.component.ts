@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs/operators";
 
 import { NavigationService } from "../../../services/navigation.service";
+import { AuthService } from "../../../services/auth/auth.service";
 import { Navigation } from "../../../models/navigation";
 
 @Component({
@@ -13,11 +16,27 @@ export class LayoutComponent implements OnInit {
   public navMenu: boolean = true;
 
   constructor(
-    private navigationService: NavigationService
-  ) { }
+    private navigationService: NavigationService,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.router.events
+      .pipe(
+        filter((event: any) => event instanceof NavigationEnd)
+      )
+      .subscribe((url: NavigationEnd) => {
+        console.log(url.url, 'url.url');
+        if (url.url && url.url.indexOf('form') != -1) {
+          console.log('url.url && url.url.indexOf');
+          if (this.authService.checkUser() && !this.navigation) {
+            console.log('getMenu')
+            this.getMenu();
+          }
+        }
+      });
+  }
 
   ngOnInit(): void {
-    this.getMenu();
   }
 
   private getMenu(): void {
