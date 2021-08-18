@@ -8,6 +8,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -18,6 +19,7 @@ const Modules: any[] = [
   MatListModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
