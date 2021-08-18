@@ -74,7 +74,10 @@ export class FormComponent implements OnInit {
   }
 
   private getUnits() {
-
+    this.unitsService.getUnits()
+      .subscribe((data: Unit[]) => {
+        this.units = data;
+      });
   }
 
   private getSources() {
