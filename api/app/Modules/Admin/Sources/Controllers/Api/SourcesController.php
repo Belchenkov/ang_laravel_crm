@@ -7,6 +7,8 @@ use App\Modules\Admin\Sources\Requests\SourceRequest;
 use App\Modules\Admin\Sources\Services\SourceService;
 use App\Services\Response\ResponseService;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 
 class SourcesController extends Controller
 {
@@ -17,12 +19,15 @@ class SourcesController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    /**
+     * @throws AuthorizationException
+     */
+    public function index(): JsonResponse
     {
-        $this->authorize('view', new Source());
+        //$this->authorize('view', new Source());
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'sources' => $this->service->getSources()
+            'items' => $this->service->getSources()
         ]);
     }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { Unit } from "../../models/unit";
@@ -73,23 +73,42 @@ export class FormComponent implements OnInit {
 
   }
 
-  private getUnits() {
+  private getUnits(): void {
     this.unitsService.getUnits()
       .subscribe((data: Unit[]) => {
         this.units = data;
       });
   }
 
-  private getSources() {
-
+  private getSources(): void {
+    this.sourcesService.getSources()
+      .subscribe((data: Source[]) => {
+        this.sources = data;
+      });
   }
 
-  private getUsers() {
-
+  private getUsers(): void {
+    this.usersService.getUsers()
+      .subscribe((data: User[]) => {
+        this.users = data;
+      });
   }
 
   private RequireLinkPhone() {
-    return undefined;
+    return (group: FormGroup): ValidationErrors => {
+      const link = group.controls['link'];
+      const phone = group.controls['phone'];
+
+      if ((!link.value && !phone.value) || (link.value && phone.value)) {
+        link.setErrors({ RequireLinkPhone: true });
+        phone.setErrors({ RequireLinkPhone: true });
+        return { RequireLinkPhone: true };
+      } else {
+        link.setErrors(null);
+        phone.setErrors(null);
+        return null;
+      }
+    };
   }
 
   private onChangesIsLead() {
