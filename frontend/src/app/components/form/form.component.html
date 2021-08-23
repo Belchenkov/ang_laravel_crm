@@ -1,1 +1,185 @@
-<p>form works!</p>
+<div class="container my-25">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="h2-title center">Новый Лид</h2>
+      <h3
+        class="h3-title" *ngIf="isLead"
+      >Дополнительные продажи: <span>{{ addSaleCount }}</span>
+      </h3>
+    </div>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="row">
+        <div class="col-3">
+          <h3 class="h3-title">Лид или задача</h3>
+          <mat-radio-group aria-label="Select an option" formControlName="isLead">
+            <mat-radio-button
+              checked="checked"
+              [value]="true"
+            >
+              Лид</mat-radio-button>
+            <mat-radio-button
+              [value]="false"
+            >
+              Задача</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div formGroupName="linkPhone" class="row">
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <mat-label>Ссылка</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="link"
+              [ngClass]="{'invalid': f.linkPhone.get('link').hasError('RequireLinkPhone')}"
+              placeholder="Ссылка"
+            >
+            <i class="material-icons left" matPrefix>link&nbsp;</i>
+            <mat-error *ngIf="f.linkPhone.get('link').hasError('RequireLinkPhone')">
+              <div>Ссылка или телефон</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="full-width">
+            <mat-label>Телефон</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="phone"
+              [ngClass]="{'invalid': f.linkPhone.get('phone').hasError('RequireLinkPhone')}"
+              placeholder="Телефон"
+            >
+            <i class="material-icons left" matPrefix>phone&nbsp;</i>
+            <mat-error *ngIf="f.linkPhone.get('phone').hasError('RequireLinkPhone')">
+              <div>Ссылка или телефон</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="select-wrap">
+          <mat-label>
+            <mat-icon>people</mat-icon>
+            Подразделения
+          </mat-label>
+          <mat-select formControlName="unitId">
+            <mat-option *ngFor="let unit of units" [value]="unit.id">
+              {{ unit.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          class="invalid_custom"
+          *ngIf="f.unitId.errors  && f.unitId.errors.required && f.unitId.touched">
+          Обязательно к заполнению</div>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="select-wrap">
+          <mat-label>
+            <mat-icon>source</mat-icon>
+            Источник
+          </mat-label>
+          <mat-select formControlName="sourceId">
+            <mat-option
+              *ngFor="let source of sources"
+              [value]="source.id"
+            >
+              {{ source.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          class="invalid_custom"
+          *ngIf="f.sourceId.errors  && f.sourceId.errors.required && f.sourceId.touched"
+        >Обязательно к заполнению</div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'hidden': !isLead, 'row': true}">
+      <div class="col-4 left">
+        <h3 class="h3-title">Заказ оформлен?</h3>
+        <mat-radio-group aria-label="Select an option" formControlName="isProcessed">
+          <mat-radio-button
+            checked="checked"
+            [value]="'0'"
+          >Нет</mat-radio-button>
+          <mat-radio-button
+            [value]="'1'"
+          >Да</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-4 center">
+        <h3 class="h3-title">Доп. продажа?</h3>
+        <mat-radio-group aria-label="Select an option" formControlName="isAddSale">
+          <mat-radio-button
+            checked="checked"
+            [value]="'0'"
+          >Нет</mat-radio-button>
+          <mat-radio-button
+            [value]="'1'"
+          >Да</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-4 right">
+        <h3 class="h3-title">Курьерская доставка?</h3>
+        <mat-radio-group aria-label="Select an option" formControlName="isExpressDelivery">
+          <mat-radio-button
+            checked="checked"
+            [value]="'0'"
+          >Нет</mat-radio-button>
+          <mat-radio-button
+            [value]="'1'"
+          >Да</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div [ngClass]="{'hidden': isLead, 'row center': true}">
+      <div class="col-12">
+        <mat-form-field appearance="fill" class="select-wrap">
+          <mat-label>
+            <mat-icon>face</mat-icon>
+            Пользователь
+          </mat-label>
+          <mat-select formControlName="responsibleId">
+            <mat-option *ngFor="let user of users" [value]="user.id">
+              {{ user.firstname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field class="textarea-full-width">
+          <mat-label class="h3-title">Комментарий</mat-label>
+          <textarea
+            matInput
+            rows="5"
+            formControlName="text"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="login_submit_button">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        mat-flat-button
+        color="primary"
+      >Добавить <i class="material-icons right">add_circle</i>
+      </button>
+    </div>
+
+  </form>
+</div>

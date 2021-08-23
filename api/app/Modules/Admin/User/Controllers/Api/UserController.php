@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,6 +24,7 @@ class UserController extends Controller
 
     public function index(): JsonResponse
     {
+        dump(Auth::user());
         //$this->authorize('view', new User());
 
         $users = $this->service->getUsers();

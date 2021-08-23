@@ -48,6 +48,7 @@ export class FormComponent implements OnInit {
     this.getUnits();
     this.getSources();
     this.getUsers();
+    this.getAddSaleCount();
 
     this.isLead = true;
 
@@ -69,7 +70,7 @@ export class FormComponent implements OnInit {
     this.onChangesIsLead();
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
 
   }
 
@@ -94,7 +95,7 @@ export class FormComponent implements OnInit {
       });
   }
 
-  private RequireLinkPhone() {
+  private RequireLinkPhone(): Object | null {
     return (group: FormGroup): ValidationErrors => {
       const link = group.controls['link'];
       const phone = group.controls['phone'];
@@ -111,7 +112,25 @@ export class FormComponent implements OnInit {
     };
   }
 
-  private onChangesIsLead() {
+  private onChangesIsLead(): void {
+    this.form.get('isLead')
+      .valueChanges
+      .subscribe(val => {
+        this.isLead = val;
+        this.form.controls['responsibleId'].setValidators(null);
 
+        if (!val) {
+          this.form.controls['responsibleId'].setValidators([Validators.required]);
+        }
+
+        this.form.controls['responsibleId'].updateValueAndValidity();
+      });
+  }
+
+  private getAddSaleCount(): void {
+    this.leadsService.addSaleCount()
+      .subscribe((data: number) => {
+        this.addSaleCount = data;
+      });
   }
 }

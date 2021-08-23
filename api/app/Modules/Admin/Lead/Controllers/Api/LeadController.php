@@ -34,7 +34,7 @@ class LeadController extends Controller
     }
 
 
-    public function show(Lead $lead)
+    public function show(Lead $lead): JsonResponse
     {
         $this->authorize('view', new Lead());
 
@@ -43,7 +43,7 @@ class LeadController extends Controller
         ]);
     }
 
-    public function store(LeadCreateRequest $request)
+    public function store(LeadCreateRequest $request): JsonResponse
     {
         $this->authorize('create', new Lead());
 
@@ -54,7 +54,7 @@ class LeadController extends Controller
         ]);
     }
 
-    public function update(LeadCreateRequest $request, Lead $lead)
+    public function update(LeadCreateRequest $request, Lead $lead): JsonResponse
     {
         $this->authorize('create', Lead::class);
 
@@ -63,17 +63,6 @@ class LeadController extends Controller
         return ResponseService::sendJsonResponse(true, 200, [], [
             'lead' => $lead
         ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Modules\Admin\Lead\Models\Lead  $lead
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Lead $lead)
-    {
-        //
     }
 
     public function archive(): JsonResponse
@@ -99,6 +88,14 @@ class LeadController extends Controller
 
         return ResponseService::sendJsonResponse(true, 200, [], [
             'lead' => $lead
+        ]);
+    }
+
+    public function getAddSaleCount(): JsonResponse
+    {
+        $count = $this->service->getAddSaleCount();
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'number' => $count
         ]);
     }
 
