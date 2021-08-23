@@ -24,7 +24,6 @@ class UserController extends Controller
 
     public function index(): JsonResponse
     {
-        dump(Auth::user());
         //$this->authorize('view', new User());
 
         $users = $this->service->getUsers();

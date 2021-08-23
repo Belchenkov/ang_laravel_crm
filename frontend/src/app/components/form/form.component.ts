@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators
+} from "@angular/forms";
 
 import { Unit } from "../../models/unit";
 import { Source } from "../../models/source";
@@ -71,7 +77,37 @@ export class FormComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    if (this.form.invalid) {
+      return;
+    }
 
+    if (this.isLead) {
+      // Lead
+      this.lead = Object.assign(this.form.value, this.form.get('linkPhone').value);
+      this.checkLead();
+    } else {
+      // Task
+      this.task = Object.assign(this.form.value, this.form.get('linkPhone').value);
+      this.storeTask();
+    }
+
+    // Clear form
+    this.form.reset({
+      isProcessed: 0,
+      isExpressDelivery: 0,
+      isAddSale: 0,
+      text: '',
+      responsibleId: null,
+      isLead: true,
+    });
+
+    Object.keys(this.form.controls).forEach((key: string) => {
+      this.resetControls(this.form.get(key));
+    });
+
+    // this.resetControls(this.f.linkPhone.get('link'));
+    // this.resetControls(this.f.linkPhone.get('phone'));
+    // this.resetControls(this.form);
   }
 
   private getUnits(): void {
@@ -132,5 +168,54 @@ export class FormComponent implements OnInit {
       .subscribe((data: number) => {
         this.addSaleCount = data;
       });
+  }
+
+  private checkLead(): void {
+    this.leadsService
+      .checkLead(this.lead)
+      .subscribe((data) => {
+        if (data.exist) {
+          this.lead.id = data.item.id;
+          this.updateLead();
+        } else {
+          this.storeLead();
+        }
+      });
+  }
+
+  private storeTask(): void {
+    this.tasksService
+      .storeTask(this.task)
+      .subscribe(() => {
+        this.toastsService.open('Сохранено!', 'Закрыть', {
+          duration: 3000,
+        });
+      });
+  }
+
+  private updateLead(): void {
+    this.leadsService
+      .updateLead(this.lead)
+      .subscribe(() => {
+        this.toastsService.open('Сохранено!', 'Закрыть', {
+          duration: 3000,
+        });
+      });
+  }
+
+  private storeLead(): void {
+    this.leadsService
+      .storeLead(this.lead)
+      .subscribe(() => {
+        this.toastsService.open('Сохранено!', 'Закрыть', {
+          duration: 3000,
+        });
+      });
+  }
+
+  private resetControls(obj: AbstractControl) {
+    obj.setErrors(null);
+    obj.markAsUntouched();
+    obj.markAsPristine();
   }
 }

@@ -132,9 +132,9 @@ class LeadService
 
     /**
      * @param $request
-     * @return Lead
+     * @return mixed
      */
-    public function checkExist($request): Lead
+    public function checkExist($request)
     {
         $qB = Lead::select('*');
 
@@ -145,8 +145,7 @@ class LeadService
         }
 
         $qB->where('status_id', '!=', Status::DONE);
-
-        return $qB->firstOrFail();
+        return $qB->first();
     }
 
     public function updateQuality(Lead $lead): Lead

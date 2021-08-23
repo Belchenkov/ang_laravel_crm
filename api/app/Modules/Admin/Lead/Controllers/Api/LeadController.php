@@ -87,7 +87,8 @@ class LeadController extends Controller
         }
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'lead' => $lead
+            'item' => $lead,
+            'exist' => true
         ]);
     }
 
