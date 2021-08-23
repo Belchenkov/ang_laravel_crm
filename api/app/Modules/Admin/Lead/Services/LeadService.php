@@ -11,6 +11,8 @@ use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LeadService
 {
@@ -130,9 +132,9 @@ class LeadService
 
     /**
      * @param $request
-     * @return Lead
+     * @return mixed
      */
-    public function checkExist($request): Lead
+    public function checkExist($request)
     {
         $qB = Lead::select('*');
 
@@ -143,8 +145,7 @@ class LeadService
         }
 
         $qB->where('status_id', '!=', Status::DONE);
-
-        return $qB->firstOrFail();
+        return $qB->first();
     }
 
     public function updateQuality(Lead $lead): Lead
@@ -152,5 +153,18 @@ class LeadService
         $lead->is_quality_lead = true;
         $lead->save();
         return $lead;
+    }
+
+    public function getAddSaleCount(): int
+    {
+        $user = auth()->user();
+        $sql_op1 = DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")');
+        $sql_op2 = DB::raw('DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)');
+
+        return (int)$user->leads()
+            ->where('is_add_sale', 1)
+            ->where('is_quality_lead', 1)
+            ->where($sql_op1, '>', $sql_op2)
+            ->count();
     }
 }

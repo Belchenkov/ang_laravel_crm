@@ -8,6 +8,10 @@ import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatRadioButton, MatRadioGroup, MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule } from "@angular/material/core";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -18,16 +22,20 @@ const Modules: any[] = [
   MatListModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSnackBarModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatOptionModule,
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    Modules
+    Modules,
   ],
   exports: [
-    Modules
+    Modules,
   ]
 })
 export class MaterialModule { }

@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 
 class ResponseService
 {
-    private static function responseParams(bool $status, array $errors = [], array $data = [])
+    private static function responseParams(bool $status, array $errors = [], array $data = []): array
     {
         return [
             'status' => $status,
@@ -41,7 +41,7 @@ class ResponseService
         return self::sendJsonResponse(false, Response::HTTP_NOT_FOUND, [], $data);
     }
 
-    public static function notAuthorize()
+    public static function notAuthorize(): JsonResponse
     {
         return self::sendJsonResponse(false, Response::HTTP_UNAUTHORIZED, [], []);
     }

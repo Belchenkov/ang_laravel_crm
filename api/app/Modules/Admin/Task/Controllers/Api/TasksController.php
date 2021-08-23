@@ -7,6 +7,7 @@ use App\Modules\Admin\Task\Requests\TaskRequest;
 use App\Modules\Admin\Task\Services\TaskService;
 use App\Http\Controllers\Controller;
 use App\Services\Response\ResponseService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,7 @@ class TasksController extends Controller
     }
 
     /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function index(): JsonResponse
     {
@@ -41,7 +42,7 @@ class TasksController extends Controller
 
 
     /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function archive(): JsonResponse
     {
@@ -56,7 +57,7 @@ class TasksController extends Controller
     }
 
     /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function store(TaskRequest $request): JsonResponse
     {
@@ -70,7 +71,7 @@ class TasksController extends Controller
     }
 
     /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function show(Task $task): JsonResponse
     {

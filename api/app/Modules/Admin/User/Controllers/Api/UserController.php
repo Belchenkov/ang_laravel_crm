@@ -7,8 +7,10 @@ use App\Modules\Admin\User\Requests\UserRequest;
 use App\Modules\Admin\User\Services\UserService;
 use App\Services\Response\ResponseService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -20,14 +22,14 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
-        $this->authorize('view', new User());
+        //$this->authorize('view', new User());
 
         $users = $this->service->getUsers();
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'users' => $users->toArray()
+            'items' => $users->toArray()
         ]);
     }
 
