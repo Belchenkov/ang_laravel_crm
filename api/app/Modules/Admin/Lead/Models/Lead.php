@@ -113,4 +113,42 @@ class Lead extends Model
         ->orderBy('updated_at', 'desc')
         ->paginate(config('settings.pagination'));
     }
+
+    public function renderData($load = true): array
+    {
+        if ($load) {
+            $this->load(['source','unit','status']);
+        }
+
+        return [
+            'id' => $this->id,
+            'phone' => $this->phone,
+            'link' => $this->link,
+            'count_create' => $this->count_create,
+            'is_processed' => $this->is_processed,
+            'isQualityLead' => $this->is_quality_lead,
+            'is_express_delivery' => $this->is_express_delivery,
+            'is_add_sale' => $this->is_add_sale,
+            'source_id' => $this->source_id,
+            'unit_id' => $this->unit_id,
+            'status_id' => $this->status_id,
+            'created_at' => $this->created_at->toDateTimeString(),
+//            'lastComment' =>  isset($this->lastComment()->comment_value)
+//                ? $this->lastComment()->comment_value
+//                : "",
+            'created_at_time' => $this->created_at->timestamp,
+            'source' => [
+                'id' => $this->source->id,
+                'title' => $this->source->title,
+            ],
+            'unit' => [
+                'id' => $this->unit->id,
+                'title' => $this->unit->title,
+            ],
+            'status' => [
+                'id' => $this->status->id,
+                'title' => $this->status->title_ru,
+            ],
+        ];
+    }
 }

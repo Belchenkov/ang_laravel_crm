@@ -9,9 +9,11 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatRadioButton, MatRadioGroup, MatRadioModule } from "@angular/material/radio";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatOptionModule } from "@angular/material/core";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatCardModule } from "@angular/material/card";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -26,6 +28,8 @@ const Modules: any[] = [
   MatRadioModule,
   MatSelectModule,
   MatOptionModule,
+  MatCheckboxModule,
+  MatCardModule,
 ];
 
 @NgModule({

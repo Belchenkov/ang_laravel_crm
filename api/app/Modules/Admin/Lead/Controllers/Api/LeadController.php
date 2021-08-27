@@ -29,7 +29,7 @@ class LeadController extends Controller
         $result = $this->service->getLeads();
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'leads' => $result
+            'items' => $result
         ]);
     }
 

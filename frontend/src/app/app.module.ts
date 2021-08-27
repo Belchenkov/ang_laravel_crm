@@ -16,6 +16,8 @@ import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { LogoutInterceptor } from "./interceptors/logout.interceptor";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NewLeadPipe } from './pipes/new-lead.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { LogoutInterceptor } from "./interceptors/logout.interceptor";
     PreloaderComponent,
     SidenavListComponent,
     FormComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    NewLeadPipe
   ],
   imports: [
     BrowserModule,

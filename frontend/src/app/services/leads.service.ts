@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { ResponseHttp } from "../models/response-http";
 import { environment } from "../../environments/environment";
 import { Lead } from "../models/lead";
+import { ResponseHttpLead } from "../models/response-http-lead";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,18 @@ export class LeadsService {
     return this.http.post<ResponseHttp>(`${this.apiUrl}/api/admin/leads`, lead)
       .pipe(
         map((data: ResponseHttp) => data.data.item),
+        catchError((error) => throwError(error))
+      );
+  }
+
+  public getLeads(): Observable<{
+    process: Lead[],
+    new: Lead[],
+    done: Lead[],
+  }> {
+    return this.http.get<ResponseHttpLead>(`${this.apiUrl}/api/admin/leads`)
+      .pipe(
+        map((data: ResponseHttpLead) => data.data.items),
         catchError((error) => throwError(error))
       );
   }
