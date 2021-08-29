@@ -10,8 +10,6 @@ use App\Modules\Admin\LeadComment\Services\LeadCommentService;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LeadService
@@ -24,9 +22,9 @@ class LeadService
 
         $statuses->each(function ($item, $key) use (&$resultLeads, $leads) {
             $collection = $leads->where('status_id', $item->id);
-            $resultLeads[$item->title] = $collection->map(function ($elem) {
-                return $elem;
-            });
+            $resultLeads[$item->title] = array_values($collection->map(function ($elem) {
+                return $elem->renderData();
+            })->toArray());
         });
 
         return $resultLeads;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
+
 import {
   AbstractControl,
   FormControl,
@@ -7,7 +9,6 @@ import {
   ValidationErrors,
   Validators
 } from "@angular/forms";
-
 import { Unit } from "../../models/unit";
 import { Source } from "../../models/source";
 import { User } from "../../models/user";
@@ -41,6 +42,7 @@ export class FormComponent implements OnInit {
     private tasksService: TasksService,
     private usersService: UsersService,
     private toastsService: MatSnackBar,
+    private router: Router,
   ) {
     this.lead = new Lead();
     this.task = new Task();
@@ -63,13 +65,13 @@ export class FormComponent implements OnInit {
         link: new FormControl(''),
         phone: new FormControl(''),
       }, this.RequireLinkPhone()),
-      sourceId: new FormControl('', Validators.required),
-      unitId: new FormControl('', Validators.required),
-      isProcessed: new FormControl('', Validators.required),
-      isExpressDelivery: new FormControl('', Validators.required),
-      isAddSale: new FormControl('', Validators.required),
+      source_id: new FormControl('', Validators.required),
+      unit_id: new FormControl('', Validators.required),
+      is_processed: new FormControl('', Validators.required),
+      is_express_delivery: new FormControl('', Validators.required),
+      is_add_sale: new FormControl('', Validators.required),
       text: new FormControl(''),
-      responsibleId: new FormControl(''),
+      responsible_id: new FormControl(''),
       isLead: new FormControl(true),
     });
 
@@ -93,11 +95,11 @@ export class FormComponent implements OnInit {
 
     // Clear form
     this.form.reset({
-      isProcessed: 0,
-      isExpressDelivery: 0,
-      isAddSale: 0,
+      is_processed: 0,
+      is_express_delivery: 0,
+      is_add_sale: 0,
       text: '',
-      responsibleId: null,
+      responsible_id: null,
       isLead: true,
     });
 
@@ -105,9 +107,11 @@ export class FormComponent implements OnInit {
       this.resetControls(this.form.get(key));
     });
 
-    // this.resetControls(this.f.linkPhone.get('link'));
-    // this.resetControls(this.f.linkPhone.get('phone'));
-    // this.resetControls(this.form);
+    this.resetControls(this.f.linkPhone.get('link'));
+    this.resetControls(this.f.linkPhone.get('phone'));
+    this.resetControls(this.form);
+
+    this.router.navigate(['/']);
   }
 
   private getUnits(): void {
@@ -153,13 +157,13 @@ export class FormComponent implements OnInit {
       .valueChanges
       .subscribe(val => {
         this.isLead = val;
-        this.form.controls['responsibleId'].setValidators(null);
+        this.form.controls['responsible_id'].setValidators(null);
 
         if (!val) {
-          this.form.controls['responsibleId'].setValidators([Validators.required]);
+          this.form.controls['responsible_id'].setValidators([Validators.required]);
         }
 
-        this.form.controls['responsibleId'].updateValueAndValidity();
+        this.form.controls['responsible_id'].updateValueAndValidity();
       });
   }
 

@@ -34,7 +34,7 @@ class LeadCreateRequest extends ApiRequest
     {
         return [
             'link' => 'required_without:phone',
-            'phone' => 'required_without:phone',
+            'phone' => 'required_without:link',
             'source_id' => 'required',
             'unit_id' => 'required',
             'is_processed' => 'required'
