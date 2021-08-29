@@ -11,6 +11,7 @@ export class Lead {
   user_id: number;
   is_processed: boolean;
   is_express_delivery: boolean;
+  is_quality_lead: boolean;
   is_add_sale: boolean;
   status_id: boolean;
   count_create: number;

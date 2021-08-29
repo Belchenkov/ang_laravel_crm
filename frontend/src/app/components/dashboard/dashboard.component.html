@@ -137,7 +137,55 @@
       </mat-card>
     </div>
     <div class="col-4">
-      Done
+      <h3 class="center leads-title">Выполнено</h3>
+      <div class="filters">
+        <mat-checkbox class="filled-in" [(ngModel)]="doneLeadQuality">
+          Только качественные
+        </mat-checkbox>
+        <mat-checkbox class="filled-in" [(ngModel)]="doneLeadQualityFalse">
+          Только некачественные
+        </mat-checkbox>
+      </div>
+      <mat-card *ngFor="let lead of doneLeads  | done:doneLeadQuality:doneLeadQualityFalse; let i = index"
+                [ngClass]="{
+                  'card' : true,
+                  'card-lead' : true,
+                  'darken-1' : true,
+                  'white-text' : true,
+                  'green': lead.is_quality_lead, 'red' : !lead.is_quality_lead
+                }"
+                (click)="openHistory($event, lead, i, doneLeads)"
+      >
+        <mat-card-content class="white-text">
+          <p class="card-content__comments">
+            ({{lead.count_create}}) <span class="clip">{{lead.lastComment}}</span>
+          </p>
+          <a
+            class="lead-link white-text lighten-3"
+            [href]="lead.link ? lead.link : 'tel:lead.phone'"
+            [target]=" lead.link ? '_blank' : ''">
+            {{ lead.link || lead.phone }}
+          </a>
+          <div class="flex-block content-between items-center">
+            <div class="lead__source">
+              <span class="lead__source-icon">
+                <svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);">
+                  <use [attr.xlink:href]="'#unit-icon-'+lead.unit.id"></use>
+                </svg></span>
+              &nbsp;
+              <span class="lead__source-title">{{ lead.source.title }}</span>
+            </div>
+            <svg
+              *ngIf="lead.is_express_delivery"
+              fill="#fff"
+              width="35px"
+              height="20px"
+            ><use xlink:href="#delivery-icon"></use>
+            </svg>
+            <div class="lead__unit-title unit__color">{{ lead.unit.title }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

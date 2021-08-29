@@ -19,6 +19,7 @@ import { LogoutInterceptor } from "./interceptors/logout.interceptor";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewLeadPipe } from './pipes/new-lead.pipe';
 import { ProcessingPipe } from './pipes/processing.pipe';
+import { DonePipe } from './pipes/done.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProcessingPipe } from './pipes/processing.pipe';
     LoginComponent,
     DashboardComponent,
     NewLeadPipe,
-    ProcessingPipe
+    ProcessingPipe,
+    DonePipe
   ],
   imports: [
     BrowserModule,
