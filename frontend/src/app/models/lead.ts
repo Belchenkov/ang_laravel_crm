@@ -15,6 +15,7 @@ export class Lead {
   status_id: boolean;
   count_create: number;
   created_at: string;
+  created_at_time: number;
   lastComment: string;
   source: Source;
   unit: Unit;

@@ -18,6 +18,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { LogoutInterceptor } from "./interceptors/logout.interceptor";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewLeadPipe } from './pipes/new-lead.pipe';
+import { ProcessingPipe } from './pipes/processing.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NewLeadPipe } from './pipes/new-lead.pipe';
     FormComponent,
     LoginComponent,
     DashboardComponent,
-    NewLeadPipe
+    NewLeadPipe,
+    ProcessingPipe
   ],
   imports: [
     BrowserModule,
