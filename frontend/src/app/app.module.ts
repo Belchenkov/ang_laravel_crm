@@ -20,6 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewLeadPipe } from './pipes/new-lead.pipe';
 import { ProcessingPipe } from './pipes/processing.pipe';
 import { DonePipe } from './pipes/done.pipe';
+import { ModalHistoryComponent } from './components/child-components/modal-history/modal-history.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DonePipe } from './pipes/done.pipe';
     DashboardComponent,
     NewLeadPipe,
     ProcessingPipe,
-    DonePipe
+    DonePipe,
+    ModalHistoryComponent
   ],
   imports: [
     BrowserModule,
