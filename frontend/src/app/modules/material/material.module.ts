@@ -15,6 +15,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatTabsModule } from "@angular/material/tabs";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -32,6 +33,7 @@ const Modules: any[] = [
   MatCheckboxModule,
   MatCardModule,
   MatDialogModule,
+  MatTabsModule,
 ];
 
 @NgModule({

@@ -21,6 +21,7 @@ import { NewLeadPipe } from './pipes/new-lead.pipe';
 import { ProcessingPipe } from './pipes/processing.pipe';
 import { DonePipe } from './pipes/done.pipe';
 import { ModalHistoryComponent } from './components/child-components/modal-history/modal-history.component';
+import { EventPipe } from './pipes/event.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ModalHistoryComponent } from './components/child-components/modal-histo
     NewLeadPipe,
     ProcessingPipe,
     DonePipe,
-    ModalHistoryComponent
+    ModalHistoryComponent,
+    EventPipe
   ],
   imports: [
     BrowserModule,

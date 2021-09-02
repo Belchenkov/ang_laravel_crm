@@ -149,6 +149,7 @@ class Lead extends Model
                 'id' => $this->status->id,
                 'title' => $this->status->title_ru,
             ],
+            'author' => $this->user->firstname
         ];
     }
 }

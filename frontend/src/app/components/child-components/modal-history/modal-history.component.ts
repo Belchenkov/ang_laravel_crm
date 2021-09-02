@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FormControl, FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 
 import { LeadsService } from "../../../services/leads.service";
 import { UnitsService } from "../../../services/units.service";
@@ -10,7 +10,7 @@ import { UsersService } from "../../../services/users.service";
 import { LeadCommentService } from "../../../services/lead-comment.service";
 import { StatusService } from "../../../services/status.service";
 import { Lead } from "../../../models/lead";
-import { Status } from "../../../models/status";
+import { Status, STATUSES } from "../../../models/status";
 import { LeadComment } from "../../../models/lead-comment";
 
 @Component({
@@ -22,6 +22,7 @@ export class ModalHistoryComponent implements OnInit {
   form: FormGroup;
   statuses: Status[];
   leadComments: LeadComment[];
+  leadComment: LeadComment;
 
   constructor(
     private leadService: LeadsService,
@@ -31,6 +32,7 @@ export class ModalHistoryComponent implements OnInit {
     private leadCommentService: LeadCommentService,
     private usersService: UsersService,
     private statusService: StatusService,
+    private dialogRef: MatDialogRef<ModalHistoryComponent>,
 
     @Inject(MAT_DIALOG_DATA) public data: {
       newLeads: Lead[],
@@ -38,6 +40,7 @@ export class ModalHistoryComponent implements OnInit {
       doneLeads: Lead[],
       lead: Lead,
       leads: Lead[],
+      index: number,
     }
   ) { }
 
@@ -61,6 +64,15 @@ export class ModalHistoryComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    console.log('Change on Process Status')
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.storeLeadComment();
+  }
+
   private getStatuses(): void {
     this.statusService
       .getStatuses()
@@ -74,6 +86,37 @@ export class ModalHistoryComponent implements OnInit {
       .getComments(this.data.lead.id)
       .subscribe((data: LeadComment[]) => {
         this.leadComments = data;
+      });
+  }
+
+  private storeLeadComment() {
+    this.leadComment = Object.assign(this.form.value);
+    this.leadComment.lead_id = this.data.lead.id;
+
+    this.leadCommentService
+      .storeLeadComment(this.leadComment)
+      .subscribe((data: Lead) => {
+        this.dialogRef.close();
+        this.toastService.open("Сохранено!", "Закрыть", {
+          duration: 2000
+        });
+
+        const newLeadResult: Lead = data;
+        this.data.leads.splice(this.data.index, 1);
+
+        switch (newLeadResult.status_id) {
+          case STATUSES.NEW:
+            this.data.newLeads.push(newLeadResult);
+            break;
+          case STATUSES.PROCESS:
+            this.data.processingLeads.push(newLeadResult);
+            break;
+          case STATUSES.DONE:
+            this.data.doneLeads.push(newLeadResult);
+            break;
+          default:
+            break;
+        }
       });
   }
 }
