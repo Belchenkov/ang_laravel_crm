@@ -7,6 +7,7 @@ use App\Modules\Admin\Lead\Requests\LeadCreateRequest;
 use App\Modules\Admin\Lead\Services\LeadService;
 use App\Modules\Admin\LeadComment\Models\LeadComment;
 use App\Services\Response\ResponseService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -107,7 +108,24 @@ class LeadController extends Controller
         $lead = $this->service->updateQuality($lead);
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'lead' => $lead
+            'item' => $lead->renderData()
+        ]);
+    }
+
+    /**
+     * @param Lead $lead
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function comments(Lead $lead): JsonResponse
+    {
+        $this->authorize('view', Lead::class);
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'items' => $lead->comments->transform(function ($item) {
+                $item->load('status', 'user');
+                return $item;
+            })->toArray()
         ]);
     }
 }

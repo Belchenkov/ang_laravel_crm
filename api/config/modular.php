@@ -23,6 +23,7 @@ return [
             'Dashboard',
             'User',
             'Unit',
+            'Status',
         ],
         'Pub' => [
             'Auth'

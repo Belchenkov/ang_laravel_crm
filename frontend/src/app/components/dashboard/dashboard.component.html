@@ -41,7 +41,7 @@
           </p>
           <a
             class="lead-link white-text lighten-3"
-            [href]="lead.link || 'tel:lead.phone'"
+            [href]="lead.link ? lead.link : 'tel:lead.phone'"
             [target]=" lead.link ? '_blank' : ''">
             {{ lead.link || lead.phone }}
           </a>

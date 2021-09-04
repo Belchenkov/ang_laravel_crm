@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog } from "@angular/material/dialog";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 
 import { Lead } from "../../models/lead";
 import { LeadsService } from "../../services/leads.service";
+import { ModalHistoryComponent } from "../child-components/modal-history/modal-history.component";
+import { ModalQualityComponent } from "../child-components/modal-quality/modal-quality.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +26,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private leadService: LeadsService,
-    private toastService: MatSnackBar
+    private toastService: MatSnackBar,
+    private modalService: MatDialog,
+    private bottomSheet: MatBottomSheet,
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +41,26 @@ export class DashboardComponent implements OnInit {
   }
 
   public openHistory(event, lead: Lead, index: number, leads: Lead[]): void {
-    console.log('openHistory')
+    const modalComponentRef = this.modalService.open(ModalHistoryComponent, {
+      width: "80%",
+      data: {
+        newLeads: this.newLeads,
+        processingLeads: this.processingLeads,
+        doneLeads: this.doneLeads,
+        lead,
+        leads
+      }
+    });
+
+    modalComponentRef.componentInstance.onQuality
+      .subscribe((data: Lead) => {
+        this.bottomSheet.open(ModalQualityComponent, {
+          data: {
+            lead: data,
+            doneLeads: this.doneLeads,
+          }
+        });
+      });
   }
 
   public dateCheck(createdAt: number, num: number, type: string): boolean {
