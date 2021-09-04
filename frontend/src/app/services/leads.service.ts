@@ -61,4 +61,12 @@ export class LeadsService {
         catchError((error) => throwError(error))
       );
   }
+
+  addQuality(lead: Lead): Observable<Lead> {
+    return this.http.put<ResponseHttp>(`${this.apiUrl}/api/admin/leads/update/quality/${lead.id}`, lead)
+      .pipe(
+        map((data: ResponseHttp) => data.data.item),
+        catchError((error) => throwError(error))
+      );
+  }
 }

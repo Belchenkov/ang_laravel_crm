@@ -68,7 +68,7 @@
     <mat-tab-group class="">
       <mat-tab label="Comments">
         <div class="col-12">
-          <div *ngFor="let cComment of leadComments | event:0" >
+          <div *ngFor="let cComment of leadComments | event:false" >
             <p>{{ cComment.created_at }}</p>
             <p >{{ cComment.text }}</p>
           </div>
@@ -76,7 +76,7 @@
       </mat-tab>
       <mat-tab label="Events">
         <div  class="col-12">
-          <div *ngFor="let cComment of leadComments | event:1" >
+          <div *ngFor="let cComment of leadComments | event:true" >
             <p>{{ cComment.created_at }}</p>
             <p >{{ cComment.text }}</p>
           </div>

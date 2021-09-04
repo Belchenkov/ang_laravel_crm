@@ -1,7 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FormControl, FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from "@angular/material/dialog";
 
 import { LeadsService } from "../../../services/leads.service";
 import { UnitsService } from "../../../services/units.service";
@@ -19,6 +22,8 @@ import { LeadComment } from "../../../models/lead-comment";
   styleUrls: ['./modal-history.component.scss']
 })
 export class ModalHistoryComponent implements OnInit {
+  @Output() onQuality = new EventEmitter<Lead>();
+
   form: FormGroup;
   statuses: Status[];
   leadComments: LeadComment[];
@@ -27,8 +32,6 @@ export class ModalHistoryComponent implements OnInit {
   constructor(
     private leadService: LeadsService,
     private toastService: MatSnackBar,
-    private unitService: UnitsService,
-    private sourceService: SourcesService,
     private leadCommentService: LeadCommentService,
     private usersService: UsersService,
     private statusService: StatusService,
@@ -65,7 +68,6 @@ export class ModalHistoryComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Change on Process Status')
     if (this.form.invalid) {
       return;
     }
@@ -113,6 +115,7 @@ export class ModalHistoryComponent implements OnInit {
             break;
           case STATUSES.DONE:
             this.data.doneLeads.push(newLeadResult);
+            this.onQuality.emit(newLeadResult);
             break;
           default:
             break;

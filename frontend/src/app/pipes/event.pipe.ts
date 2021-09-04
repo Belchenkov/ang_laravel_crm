@@ -8,7 +8,6 @@ import { LeadComment } from "../models/lead-comment";
 export class EventPipe implements PipeTransform {
 
   transform(comments: LeadComment[], type: boolean): LeadComment[] {
-    return comments.filter((comment: LeadComment) => comment.is_event === type);
+    return comments ? comments.filter((comment: LeadComment) => comment.is_event === type) : comments;
   }
-
 }

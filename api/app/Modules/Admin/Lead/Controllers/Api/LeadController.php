@@ -108,7 +108,7 @@ class LeadController extends Controller
         $lead = $this->service->updateQuality($lead);
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'lead' => $lead
+            'item' => $lead->renderData()
         ]);
     }
 
