@@ -51,7 +51,7 @@ class LeadController extends Controller
         $lead = $this->service->store($request, Auth::user());
 
         return ResponseService::sendJsonResponse(true, 201, [], [
-            'lead' => $lead
+            'item' => $lead->renderData()
         ]);
     }
 

@@ -23,6 +23,7 @@ import { DonePipe } from './pipes/done.pipe';
 import { ModalHistoryComponent } from './components/child-components/modal-history/modal-history.component';
 import { EventPipe } from './pipes/event.pipe';
 import { ModalQualityComponent } from './components/child-components/modal-quality/modal-quality.component';
+import { ModalNewLeadComponent } from './components/child-components/modal-new-lead/modal-new-lead.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModalQualityComponent } from './components/child-components/modal-quali
     DonePipe,
     ModalHistoryComponent,
     EventPipe,
-    ModalQualityComponent
+    ModalQualityComponent,
+    ModalNewLeadComponent
   ],
   imports: [
     BrowserModule,

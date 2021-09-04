@@ -73,12 +73,12 @@ class Lead extends Model
         return $this->belongsToMany(Status::class);
     }
 
-    public function lastComment(): HasMany
+    public function lastComment()
     {
         return $this->comments()
             ->where('comment_value', '!=', NULL)
             ->orderBy('id', 'desc')
-            ->firstOrFail();
+            ->first();
     }
 
     public function getLeads()
@@ -125,17 +125,15 @@ class Lead extends Model
             'phone' => $this->phone,
             'link' => $this->link,
             'count_create' => $this->count_create,
-            'is_processed' => $this->is_processed,
-            'isQualityLead' => $this->is_quality_lead,
-            'is_express_delivery' => $this->is_express_delivery,
+            'is_processed' => (bool)$this->is_processed,
+            'is_quality_lead' => (bool)$this->is_quality_lead,
+            'is_express_delivery' => (bool)$this->is_express_delivery,
             'is_add_sale' => $this->is_add_sale,
             'source_id' => $this->source_id,
             'unit_id' => $this->unit_id,
             'status_id' => $this->status_id,
             'created_at' => $this->created_at->toDateTimeString(),
-//            'lastComment' =>  isset($this->lastComment()->comment_value)
-//                ? $this->lastComment()->comment_value
-//                : "",
+            'lastComment' => $this->lastComment()->comment_value ?? "",
             'created_at_time' => $this->created_at->timestamp,
             'source' => [
                 'id' => $this->source->id,
