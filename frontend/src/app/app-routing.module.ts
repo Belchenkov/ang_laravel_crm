@@ -5,6 +5,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { FormComponent } from "./components/form/form.component";
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { LeadArchiveComponent } from "./components/archive/lead/lead-archive/lead-archive.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'archives',
+    component: LeadArchiveComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

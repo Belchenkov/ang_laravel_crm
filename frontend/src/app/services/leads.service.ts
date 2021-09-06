@@ -69,4 +69,12 @@ export class LeadsService {
         catchError((error) => throwError(error))
       );
   }
+
+  getArchiveLeads(page: number): Observable<Lead[]> {
+    return this.http.get<ResponseHttp>(`${this.apiUrl}/api/admin/leads/archive/index/?page=${page}`)
+      .pipe(
+        map((data: ResponseHttp) => data.data.items),
+        catchError((error) => throwError(error))
+      );
+  }
 }

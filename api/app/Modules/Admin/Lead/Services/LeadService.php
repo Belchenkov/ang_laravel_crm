@@ -10,6 +10,7 @@ use App\Modules\Admin\LeadComment\Services\LeadCommentService;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class LeadService
@@ -123,9 +124,12 @@ class LeadService
         $lead->statuses()->attach($status->id);
     }
 
-    public function archive(): LengthAwarePaginator
+    public function archive(): Collection
     {
-        return (new Lead())->getArchive();
+        return collect((new Lead())->getArchive()->items())
+                ->transform(function ($item) {
+                    return $item->renderData(false);
+                });
     }
 
     /**

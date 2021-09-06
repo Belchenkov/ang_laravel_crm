@@ -24,6 +24,7 @@ import { ModalHistoryComponent } from './components/child-components/modal-histo
 import { EventPipe } from './pipes/event.pipe';
 import { ModalQualityComponent } from './components/child-components/modal-quality/modal-quality.component';
 import { ModalNewLeadComponent } from './components/child-components/modal-new-lead/modal-new-lead.component';
+import { LeadArchiveComponent } from './components/archive/lead/lead-archive/lead-archive.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ModalNewLeadComponent } from './components/child-components/modal-new-l
     ModalHistoryComponent,
     EventPipe,
     ModalQualityComponent,
-    ModalNewLeadComponent
+    ModalNewLeadComponent,
+    LeadArchiveComponent
   ],
   imports: [
     BrowserModule,
