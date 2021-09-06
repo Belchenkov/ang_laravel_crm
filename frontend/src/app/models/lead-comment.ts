@@ -7,4 +7,5 @@ export interface LeadComment {
   comment_value: string;
   is_event: boolean;
   created_at: string;
+  created_at_humans: string;
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from "@angular/material/dialog";
 
 import { Lead } from "../../../../models/lead";
 import { LeadsService } from "../../../../services/leads.service";
+import { LeadArchiveHistoryComponent } from "../lead-archive-history/lead-archive-history.component";
 
 @Component({
   selector: 'app-lead-archive',
@@ -15,7 +17,8 @@ export class LeadArchiveComponent implements OnInit {
   public doneLeadQualityFalse: boolean = false;
 
   constructor(
-    private leadsService: LeadsService
+    private leadsService: LeadsService,
+    private modalService: MatDialog,
   ) {
     this.page = 1;
     this.leads = [];
@@ -26,7 +29,12 @@ export class LeadArchiveComponent implements OnInit {
   }
 
   public openHistory(event: Event, lead: Lead, i: number, leads: Lead[]) {
-
+    this.modalService.open(LeadArchiveHistoryComponent, {
+      data: {
+        lead
+      },
+      width: '80%'
+    });
   }
 
   public loadLead(): void {

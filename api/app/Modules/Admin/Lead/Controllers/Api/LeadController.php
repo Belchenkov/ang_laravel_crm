@@ -124,6 +124,7 @@ class LeadController extends Controller
         return ResponseService::sendJsonResponse(true, 200, [], [
             'items' => $lead->comments->transform(function ($item) {
                 $item->load('status', 'user');
+                $item->created_at_humans = $item->created_at->toDateTimeString();
                 return $item;
             })->toArray()
         ]);
