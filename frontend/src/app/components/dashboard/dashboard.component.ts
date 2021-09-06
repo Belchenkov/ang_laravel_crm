@@ -111,7 +111,9 @@ export class DashboardComponent implements OnInit {
   public openSourceModal(): void {
     this.modalService.open(ModalNewLeadComponent, {
       data: {
-        leads: this.newLeads
+        leads: this.newLeads,
+        processingLeads: this.processingLeads,
+        doneLeads: this.doneLeads,
       },
       width: '80%'
     });

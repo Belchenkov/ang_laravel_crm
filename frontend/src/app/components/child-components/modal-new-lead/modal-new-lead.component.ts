@@ -35,7 +35,9 @@ export class ModalNewLeadComponent implements OnInit {
     private dialogRef: MatDialogRef<ModalNewLeadComponent>,
 
     @Inject(MAT_DIALOG_DATA) public data: {
-      leads: Lead[]
+      leads: Lead[],
+      processingLeads: Lead[],
+      doneLeads: Lead[],
     }
   ) { }
 
@@ -122,11 +124,13 @@ export class ModalNewLeadComponent implements OnInit {
   }
   private updateLead(): void {
     this.leadService.updateLead(this.lead)
-      .subscribe((data) => {
+      .subscribe((data: Lead) => {
       this.toastService.open("Сохранено","Закрыть", {
         duration: 2000
       });
-    })
+
+      this.removeAndPushLead(data);
+    });
   }
 
   private getUnits() {
@@ -141,6 +145,26 @@ export class ModalNewLeadComponent implements OnInit {
       .subscribe((data: Source[]) => {
         this.sources = data;
       });
+  }
+
+  private removeAndPushLead(data: Lead): void {
+    this.checkRemove(data, this.data.leads);
+    this.checkRemove(data, this.data.processingLeads);
+    this.checkRemove(data, this.data.doneLeads);
+  }
+
+  private checkRemove(data: Lead, leads: Lead[]): void {
+    let idx: number = null;
+
+    leads.forEach((item: Lead, index: number) => {
+      if (item.id === data.id) {
+        idx = index;
+      }
+    });
+
+    if (idx) {
+      leads.splice(idx, 1);
+    }
   }
 
   private RequireLinkPhone(): Object | null {

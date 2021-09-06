@@ -62,7 +62,7 @@ class LeadController extends Controller
         $lead = $this->service->update($request, Auth::user(), $lead);
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'lead' => $lead
+            'item' => $lead->renderData()
         ]);
     }
 
@@ -73,7 +73,7 @@ class LeadController extends Controller
         $leads = $this->service->archive();
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'leads' => $leads
+            'items' => $leads
         ]);
     }
 
