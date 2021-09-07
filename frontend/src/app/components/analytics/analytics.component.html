@@ -1,0 +1,71 @@
+<div class="container my-25">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="leads-title">Аналитика Лидов</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 d-flex">
+      <mat-form-field appearance="fill" class="mr-15">
+        <mat-label>Диапазон дат</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" [(ngModel)]="dateStart" #dateRangeStart>
+          <input matEndDate [(ngModel)]="dateEnd" placeholder="End date" #dateRangeEnd>
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <div>
+        <button
+          type="submit"
+          (click)="getAnalytics()"
+          mat-flat-button
+          color="primary">
+          Поиск
+          <i class="material-icons right">search</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <table class="analytics_table">
+        <thead>
+        <tr>
+          <th class="center" rowspan="2">Менеджер</th>
+          <th  class="center" rowspan="2">Количество лидов</th>
+          <th  class="center" colspan="2">Успешные</th>
+          <th  class="center" colspan="2">Неуспешные</th>
+          <th  class="center" rowspan="2">Скачать</th>
+        </tr>
+        <tr>
+          <th class="center">Всего</th>
+          <th class="center">С доп. продажами</th>
+          <th class="center">Всего</th>
+          <th class="center">С доп. продажами</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of analyticsData">
+
+          <td class="center" >{{ data.firstname }}</td>
+          <td class="center" >{{ data.CountLeads }}</td>
+          <td class="center" >{{ data.CountQualityLeads }}</td>
+          <td class="center" >{{ data.CountQualityAssSaleLeads }}</td>
+          <td class="center" >{{ data.CountNotQualityLeads }}</td>
+          <td class="center" >{{ data.CountNotQualityAssSaleLeads }}</td>
+          <td class="center" >
+            <a
+              [href]="path + 'analytics/export/' + data.id  +'/' + dateHelper(dateStart) + '/' + dateHelper(dateEnd)"
+              mat-button
+              color="primary"
+            >Ссылка</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

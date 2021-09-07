@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from "./modules/material/material.module";
@@ -20,12 +22,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewLeadPipe } from './pipes/new-lead.pipe';
 import { ProcessingPipe } from './pipes/processing.pipe';
 import { DonePipe } from './pipes/done.pipe';
-import { ModalHistoryComponent } from './components/child-components/modal-history/modal-history.component';
 import { EventPipe } from './pipes/event.pipe';
+import { ModalHistoryComponent } from './components/child-components/modal-history/modal-history.component';
 import { ModalQualityComponent } from './components/child-components/modal-quality/modal-quality.component';
 import { ModalNewLeadComponent } from './components/child-components/modal-new-lead/modal-new-lead.component';
 import { LeadArchiveComponent } from './components/archive/lead/lead-archive/lead-archive.component';
 import { LeadArchiveHistoryComponent } from './components/archive/lead/lead-archive-history/lead-archive-history.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { LeadArchiveHistoryComponent } from './components/archive/lead/lead-arch
     ModalQualityComponent,
     ModalNewLeadComponent,
     LeadArchiveComponent,
-    LeadArchiveHistoryComponent
+    LeadArchiveHistoryComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,8 @@ import { LeadArchiveHistoryComponent } from './components/archive/lead/lead-arch
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     {

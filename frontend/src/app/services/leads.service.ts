@@ -7,6 +7,7 @@ import { ResponseHttp } from "../models/response-http";
 import { environment } from "../../environments/environment";
 import { Lead } from "../models/lead";
 import { ResponseHttpLead } from "../models/response-http-lead";
+import { Analytic } from "../models/analytic";
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,17 @@ export class LeadsService {
 
   getArchiveLeads(page: number): Observable<Lead[]> {
     return this.http.get<ResponseHttp>(`${this.apiUrl}/api/admin/leads/archive/index/?page=${page}`)
+      .pipe(
+        map((data: ResponseHttp) => data.data.items),
+        catchError((error) => throwError(error))
+      );
+  }
+
+  getAnalytics(dateStart: string, dateEnd: string): Observable<Analytic[]> {
+    return this.http.post<ResponseHttp>(`${this.apiUrl}/api/admin/analytics`, {
+      dateStart,
+      dateEnd,
+    })
       .pipe(
         map((data: ResponseHttp) => data.data.items),
         catchError((error) => throwError(error))
