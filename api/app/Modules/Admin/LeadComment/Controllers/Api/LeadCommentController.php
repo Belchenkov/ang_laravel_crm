@@ -7,6 +7,7 @@ use App\Modules\Admin\LeadComment\Requests\LeadCommentRequest;
 use App\Modules\Admin\LeadComment\Services\LeadCommentService;
 use App\Services\Response\ResponseService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class LeadCommentController extends Controller
@@ -18,7 +19,7 @@ class LeadCommentController extends Controller
         $this->service = $service;
     }
 
-    public function store(LeadCommentRequest $request)
+    public function store(LeadCommentRequest $request): JsonResponse
     {
         $this->authorize('create', LeadComment::class);
 

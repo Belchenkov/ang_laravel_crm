@@ -19,12 +19,12 @@ class AnalyticsController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorize('create', new Lead());
+        $this->authorize('view', new Lead());
 
         $leads = $this->service->getAnalytic($request);
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'leads' => $leads
+            'items' => $leads
         ]);
     }
 }

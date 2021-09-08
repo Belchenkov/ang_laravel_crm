@@ -17,6 +17,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -36,6 +37,7 @@ const Modules: any[] = [
   MatDialogModule,
   MatTabsModule,
   MatBottomSheetModule,
+  MatDatepickerModule,
 ];
 
 @NgModule({
