@@ -7,6 +7,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { LeadArchiveComponent } from "./components/archive/lead/lead-archive/lead-archive.component";
 import { AnalyticsComponent } from "./components/analytics/analytics.component";
+import { SourcesComponent } from "./components/sources/sources.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'analytics',
     component: AnalyticsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'sources',
+    component: SourcesComponent,
     canActivate: [AuthGuard]
   }
 ];

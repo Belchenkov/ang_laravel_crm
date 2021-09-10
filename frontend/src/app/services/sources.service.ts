@@ -24,4 +24,12 @@ export class SourcesService {
         catchError((error) => throwError(error))
       );
   }
+
+  public deleteSource(source: Source): Observable<Source> {
+    return this.http.delete<ResponseHttp>(`${this.apiUrl}/api/admin/sources/${source.id}`)
+      .pipe(
+        map((data) => data.data.item),
+        catchError((error) => throwError(error))
+      );
+  }
 }
