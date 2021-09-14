@@ -29,6 +29,9 @@ import { ModalNewLeadComponent } from './components/child-components/modal-new-l
 import { LeadArchiveComponent } from './components/archive/lead/lead-archive/lead-archive.component';
 import { LeadArchiveHistoryComponent } from './components/archive/lead/lead-archive-history/lead-archive-history.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { SourcesComponent } from './components/sources/sources.component';
+import { ModalSourcesComponent } from './components/child-components/modal-sources/modal-sources.component';
+import { MatDialogRef } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { AnalyticsComponent } from './components/analytics/analytics.component';
     ModalNewLeadComponent,
     LeadArchiveComponent,
     LeadArchiveHistoryComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    SourcesComponent,
+    ModalSourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +82,10 @@ import { AnalyticsComponent } from './components/analytics/analytics.component';
       provide: HTTP_INTERCEPTORS,
       useClass: LogoutInterceptor,
       multi: true,
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {}
     }
   ],
   bootstrap: [AppComponent]

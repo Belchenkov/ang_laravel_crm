@@ -18,6 +18,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatTableModule } from "@angular/material/table";
 
 const Modules: any[] = [
   MatSidenavModule,
@@ -38,6 +39,7 @@ const Modules: any[] = [
   MatTabsModule,
   MatBottomSheetModule,
   MatDatepickerModule,
+  MatTableModule,
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'sources', 'middleware' => []], function () {
+Route::group(['prefix' => 'sources', 'middleware' => ['auth:api']], function () {
     Route::get('/', 'Api\SourcesController@index')->name('api.sources.index');
     Route::post('/', 'Api\SourcesController@store')->name('api.sources.store');
     Route::get('/{source}', 'Api\SourcesController@show')->name('api.sources.read');

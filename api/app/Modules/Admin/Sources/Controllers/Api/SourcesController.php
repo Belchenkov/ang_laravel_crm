@@ -24,28 +24,37 @@ class SourcesController extends Controller
      */
     public function index(): JsonResponse
     {
-        //$this->authorize('view', new Source());
+        $this->authorize('view', new Source());
 
         return ResponseService::sendJsonResponse(true, 200, [], [
             'items' => $this->service->getSources()
         ]);
     }
 
-    public function store(SourceRequest $request)
+    /**
+     * @param SourceRequest $request
+     * @return JsonResponse
+     */
+    public function store(SourceRequest $request): JsonResponse
     {
         $source = $this->service->save($request, new Source());
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'source' => $source->toArray()
+            'item' => $source->toArray()
         ]);
     }
 
-    public function update(SourceRequest $request, Source $source)
+    /**
+     * @param SourceRequest $request
+     * @param Source $source
+     * @return JsonResponse
+     */
+    public function update(SourceRequest $request, Source $source): JsonResponse
     {
         $source = $this->service->save($request, $source);
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'source' => $source->toArray()
+            'item' => $source->toArray()
         ]);
     }
 
