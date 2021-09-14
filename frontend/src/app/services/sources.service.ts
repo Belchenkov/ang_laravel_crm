@@ -32,4 +32,20 @@ export class SourcesService {
         catchError((error) => throwError(error))
       );
   }
+
+  public saveSource(source: Source): Observable<Source> {
+    return this.http.post<ResponseHttp>(`${this.apiUrl}/api/admin/sources`, source)
+      .pipe(
+        map((data) => data.data.item),
+        catchError((error) => throwError(error))
+      );
+  }
+
+  public updateSource(source: Source): Observable<Source> {
+    return this.http.put<ResponseHttp>(`${this.apiUrl}/api/admin/sources/${source.id}`, source)
+      .pipe(
+        map((data) => data.data.item),
+        catchError((error) => throwError(error))
+      );
+  }
 }

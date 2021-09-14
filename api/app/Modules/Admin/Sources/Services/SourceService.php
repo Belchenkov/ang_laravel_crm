@@ -6,6 +6,7 @@ namespace App\Modules\Admin\Sources\Services;
 
 use App\Modules\Admin\Sources\Models\Source;
 use App\Modules\Admin\Sources\Requests\SourceRequest;
+use Illuminate\Database\Eloquent\Collection;
 
 class SourceService
 {
