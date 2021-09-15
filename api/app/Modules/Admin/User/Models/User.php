@@ -26,6 +26,7 @@ class User extends AuthUser
     protected $fillable = [
         'firstname',
         'lastname',
+        'password',
         'email',
         'phone',
         'status',
