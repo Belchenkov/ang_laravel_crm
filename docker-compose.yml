@@ -27,7 +27,7 @@ services:
             - api-php-cli
             - api-php-fpm
         ports:
-            - "8081:80"
+            - "8083:80"
     api-php-fpm:
         build:
             context: ./api/docker
